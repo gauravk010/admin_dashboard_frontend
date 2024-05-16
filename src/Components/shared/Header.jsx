@@ -15,7 +15,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../Auth/Helper";
 
 export const Header = (props) => {
-  const { SidbarSz, setSidbarSz } = props;
+  const {
+    SidebarCollapse,
+    setSidebarCollapse,
+    MobSidebarCollapse,
+    setMobSidebarCollapse,
+  } = props;
   const [User, setUser] = useState([]);
   const navigate = useNavigate();
   let config = {
@@ -35,11 +40,15 @@ export const Header = (props) => {
     navigate("/login");
   };
   const toggle = () => {
-    setSidbarSz(!SidbarSz);
+    if (window.innerWidth > 990) {
+      setSidebarCollapse(!SidebarCollapse);
+    } else {
+      setMobSidebarCollapse(!MobSidebarCollapse);
+    }
   };
 
   return (
-    <div className="bg-white h-16 px-4 flex justify-between items-center border-b border-gray-200">
+    <div className="bg-white h-16 px-4 flex justify-between  items-center border-b border-gray-200">
       <div className="flex items-center gap-5">
         <div>
           <HiOutlineMenu
@@ -48,7 +57,7 @@ export const Header = (props) => {
             onClick={toggle}
           />
         </div>
-        <div className="relative">
+        <div className="relative max-sm:flex-1">
           <HiOutlineSearch
             fontSize={20}
             className="text-gray-400 absolute top-1/2 -translate-y-1/2 left-3"
@@ -56,11 +65,11 @@ export const Header = (props) => {
           <input
             type="text"
             placeholder="Search..."
-            className="text-sm focus:outline-none active:outline-none h-10 w-[24rem] border border-gray-300 pl-11 pr-4 rounded-sm"
+            className="text-sm focus:outline-none active:outline-none h-10 w-[24rem] border border-gray-300 pl-11 pr-4 rounded-sm max-sm:w-[300px]" 
           />
         </div>
       </div>
-      <div className="flex gap-2 mr-7">
+      <div className="flex gap-2 mr-7 max-sm:hidden">
         <Popover className="relative">
           {({ open }) => (
             <>

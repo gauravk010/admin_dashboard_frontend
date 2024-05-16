@@ -59,7 +59,7 @@ export const PieChartComp = () => {
         <strong className="text-gray-700 font-semibold">Product Report</strong>
       </div>
       <div className="mt-3 w-full flex-1 text-xs flex justify-center">
-        {/* <ResponsiveContainer width="500" height="500"> */}
+        <ResponsiveContainer width="100%" height={400}>
         <PieChart width={400} height={300}>
           <Pie
             data={VisData}
@@ -82,7 +82,7 @@ export const PieChartComp = () => {
           </Pie>
           <Legend />
         </PieChart>
-        {/* </ResponsiveContainer> */}
+        </ResponsiveContainer>
       </div>
     </div>
   );

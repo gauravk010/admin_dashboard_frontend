@@ -118,7 +118,7 @@ const AddUser = () => {
       <div className="mt-4 px-6 py-4">
         <form onSubmit={handleSubmit(adduser)}>
           <h1 className="text-lg font-normal mb-4">Product Information</h1>
-          <div className="flex w-full gap-6 ">
+          <div className="flex w-full gap-6 max-[990px]:flex-col">
             <div className="flex flex-col w-full">
               <label htmlFor="fullname">Full Name</label>
               <input
@@ -150,7 +150,7 @@ const AddUser = () => {
               )}
             </div>
           </div>
-          <div className="flex w-full gap-6 mt-4">
+          <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
             <div className="flex flex-col w-full">
               <label htmlFor="email">Email</label>
               <input
@@ -182,7 +182,7 @@ const AddUser = () => {
               )}
             </div>
           </div>
-          <div className="flex w-full gap-6 mt-4">
+          <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
             <div className="flex flex-col w-full">
               <label htmlFor="contact">Contact</label>
               <input
@@ -216,7 +216,7 @@ const AddUser = () => {
               )}
             </div>
           </div>
-          <div className="flex w-full gap-6 mt-4">
+          <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
             <div className="flex flex-col w-full">
               <label htmlFor="status">Status</label>
               <select

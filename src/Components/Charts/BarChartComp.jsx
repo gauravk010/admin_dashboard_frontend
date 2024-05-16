@@ -26,11 +26,21 @@ export const BarChartComp = () => {
   }, []);
 
   const fetchData = () => {
-    axios
-      .get(`${BASE_URL}/admin/get-order-stats`, config)
-      .then((res) => {
-        setVisData(res.data);
+    axios.get(`${BASE_URL}/admin/get-order-stats`, config).then((res) => {
+      let data = res.data.map((item) => {
+        let word = item.name;
+        let ItemName = item.name.slice(0, 7);
+        return {
+          name: ItemName + `${word.length > 7 ? ".." : ""}`,
+          orders: item.orders,
+        };
       });
+      if (window.innerWidth > 720) {
+        setVisData(res.data);
+      } else {
+        setVisData(data);
+      }
+    });
   };
 
   return (
@@ -38,10 +48,10 @@ export const BarChartComp = () => {
       <div className="flex items-center justify-between">
         <strong className="text-gray-700 font-semibold">Orders Report</strong>
       </div>
-      <div className="mt-3 w-full flex-1 text-xs">
-        <ResponsiveContainer width="90%" aspect={2}>
+      <div className="mt-3 w-full flex-1 text-xs flex justify-center">
+        <ResponsiveContainer width="100%" height={400}>
           <BarChart
-            width={400}
+            width={800}
             height={300}
             data={VisData}
             margin={{
@@ -53,7 +63,7 @@ export const BarChartComp = () => {
             barSize={100}
           >
             <CartesianGrid strokeDasharray="3 3 0 0" vertical={false} />
-            <XAxis interval={0} dataKey="name" />
+            <XAxis interval={0} dataKey="name"/>
             <YAxis />
             <Tooltip />
             <Legend />

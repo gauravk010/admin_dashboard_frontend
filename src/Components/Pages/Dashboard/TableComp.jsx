@@ -79,7 +79,7 @@ export default function TableComp() {
   };
 
   return (
-    <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1">
+    <div className="bg-white px-4 max-sm:px-2 pt-3 pb-4 rounded-sm border border-gray-200 w-full">
       <div className="flex items-center justify-between mt-3">
         <strong className="text-gray-700 font-semibold">All Products</strong>
         <div className="flex items-center gap-2 justify-between">
@@ -100,7 +100,7 @@ export default function TableComp() {
               ></path>
             </svg>
             <select
-              className="w-36 appearance-none forced-colors:appearance-auto border row-start-1 col-start-1 rounded-lg focus:outline-none bg-white border-gray-200 text-gray-700 px-2 py-1"
+              className="w-36 max-sm:w-32 max-sm:text-sm appearance-none forced-colors:appearance-auto border row-start-1 col-start-1 rounded-lg focus:outline-none bg-white border-gray-200 text-gray-700 px-2 py-2"
               onChange={OnStatus}
               value={Status}
             >
@@ -113,8 +113,8 @@ export default function TableComp() {
       </div>
       {Data.length > 0 ? (
         <>
-          <div className="border-x border-gray-200 rounded-sm mt-5 ">
-            <table className="w-full text-gray-700 rounded-sm">
+          <div className="border-x border-gray-200 rounded-sm mt-5 w-full overflow-x-auto">
+            <table className="w-full text-gray-700 rounded-sm border-collapse">
               <thead>
                 <tr>
                   <th>Sr</th>

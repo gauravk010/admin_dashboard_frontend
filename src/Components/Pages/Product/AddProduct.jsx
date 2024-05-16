@@ -119,7 +119,7 @@ const AddProduct = () => {
       <div className="mt-4 px-6 py-4">
         <form onSubmit={handleSubmit(addproduct)}>
           <h1 className="text-lg font-normal mb-4">Product Information</h1>
-          <div className="flex w-full gap-6 ">
+          <div className="flex w-full gap-6 max-[990px]:flex-col">
             <div className="flex flex-col w-full">
               <label htmlFor="name">Name</label>
               <input
@@ -159,7 +159,7 @@ const AddProduct = () => {
               )}
             </div>
           </div>
-          <div className="flex w-full gap-6 mt-4">
+          <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
             <div className="flex flex-col w-full">
               <label htmlFor="price">Price</label>
               <input
@@ -191,7 +191,7 @@ const AddProduct = () => {
               )}
             </div>
           </div>
-          <div className="flex w-full gap-6 mt-4">
+          <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
             <div className="flex flex-col w-full">
               <label htmlFor="size">Size</label>
               <input
@@ -224,7 +224,7 @@ const AddProduct = () => {
               )}
             </div>
           </div>
-          <div className="flex w-full gap-6 mt-4">
+          <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
             <div className="flex flex-col w-full">
               <label htmlFor="description">Description</label>
               <textarea

@@ -36,13 +36,13 @@ export const Register = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-row">
+    <div className="w-screen h-screen flex flex-row max-[990px]:justify-center">
       <div
-        className="bg-center bg-no-repeat bg-contain w-full "
+        className="bg-center bg-no-repeat bg-contain w-full max-[1500px]:w-1/2 max-[990px]:hidden block"
         style={{ backgroundImage: `url(${image})` }}
       ></div>
-      <div className="w-1/2 flex items-center justify-center border border-l-gray-200">
-        <div className="bg-white border shadow-md p-1 ring-1 ring-black ring-opacity-5 rounded-lg w-3/4 ">
+      <div className="w-1/2 flex items-center justify-center min-[990px]:border min-[990px]:border-l-gray-200 max-[990px]:w-[80%] max-sm:w-full">
+        <div className="bg-white border shadow-md p-1 ring-1 ring-black ring-opacity-5 rounded-lg w-3/4  max-[990px]:w-[80%] max-sm:w-[90%]">
           <div className="flex min-h-full flex-col justify-center px-6 py-8 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <div className="flex justify-center items-center">

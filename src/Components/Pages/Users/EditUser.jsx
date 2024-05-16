@@ -137,7 +137,7 @@ const EditUser = () => {
         {!Loading ? (
           <form onSubmit={handleSubmit(edituser)}>
             <h1 className="text-lg font-normal mb-4">Product Information</h1>
-            <div className="flex w-full gap-6 ">
+            <div className="flex w-full gap-6 max-[990px]:flex-col">
               <div className="flex flex-col w-full">
                 <label htmlFor="fullname">Full Name</label>
                 <input
@@ -169,7 +169,7 @@ const EditUser = () => {
                 )}
               </div>
             </div>
-            <div className="flex w-full gap-6 mt-4">
+            <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
               <div className="flex flex-col w-full">
                 <label htmlFor="email">Email</label>
                 <input
@@ -201,7 +201,7 @@ const EditUser = () => {
                 )}
               </div>
             </div>
-            <div className="flex w-full gap-6 mt-4">
+            <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
               <div className="flex flex-col w-full">
                 <label htmlFor="role">Select Role</label>
                 <select

@@ -94,8 +94,8 @@ export const Product = () => {
   };
 
   return (
-    <div className="bg-white rounded-sm border border-gray-200 flex-1 ">
-      <div className="border-b border-gray-200 px-6 py-4">
+    <div className="bg-white rounded-sm border border-gray-200 w-full">
+      <div className="border-b border-gray-200 max-sm:px-2 px-6 py-4">
         <strong className="text-gray-700 text-xl font-semibold">
           All Products
         </strong>
@@ -144,7 +144,7 @@ export const Product = () => {
         </nav>
       </div>
 
-      <div className="px-6 py-4">
+      <div className="px-6 py-4 max-sm:px-2">
         <div className="flex items-center justify-between mt-3">
           <div className="flex items-center gap-2 justify-between">
             <div className="grid">
@@ -161,7 +161,7 @@ export const Product = () => {
                 ></path>
               </svg>
               <select
-                className="w-36 appearance-none forced-colors:appearance-auto border row-start-1 col-start-1 rounded-lg focus:outline-none bg-white border-gray-200 text-gray-700 px-2 py-1"
+                className="w-36 max-sm:w-32 max-sm:text-sm appearance-none forced-colors:appearance-auto border row-start-1 col-start-1 rounded-lg focus:outline-none bg-white border-gray-200 text-gray-700 px-2 py-2"
                 onChange={OnStatus}
                 value={Status}
               >
@@ -176,7 +176,7 @@ export const Product = () => {
           </div>
           <Link
             to={"/products/add-product"}
-            className="bg-neutral-900 rounded-md px-4 py-2 hover:bg-neutral-700 text-white hover:no-underline"
+            className="bg-neutral-900 max-sm:w-32 max-sm:text-sm rounded-md px-4 py-2 hover:bg-neutral-700 text-white hover:no-underline"
           >
             + Add Product
           </Link>
@@ -184,8 +184,8 @@ export const Product = () => {
 
         {Data.length > 0 ? (
           <>
-            <div className="border-x border-gray-200 rounded-sm mt-5 ">
-              <table className="w-full text-gray-700 rounded-sm">
+            <div className="border-x border-gray-200 rounded-sm mt-5 w-full overflow-x-auto">
+              <table className="w-full text-gray-700 rounded-sm border-collapse">
                 <thead>
                   <tr>
                     <th>Sr</th>

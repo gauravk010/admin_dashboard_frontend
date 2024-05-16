@@ -5,9 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../../Auth/Helper";
+import { Spinner } from "../../shared/Spinner";
 
 const EditProduct = () => {
   const { id } = useParams();
+  const [Loading, setLoading] = useState(true);
   let config = {
     headers: {
       authtoken: localStorage.getItem("authtoken"),
@@ -15,17 +17,16 @@ const EditProduct = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/admin/get-product/${id}`, config)
-      .then((res) => {
-        setValue("name", res.data.name);
-        setValue("category", res.data.category);
-        setValue("description", res.data.description);
-        setValue("price", res.data.price);
-        setValue("quantity", res.data.quantity);
-        setValue("status", res.data.status);
-        setValue("size", res.data.size);
-      });
+    axios.get(`${BASE_URL}/admin/get-product/${id}`, config).then((res) => {
+      setLoading(res.data ? false : true);
+      setValue("name", res.data.name);
+      setValue("category", res.data.category);
+      setValue("description", res.data.description);
+      setValue("price", res.data.price);
+      setValue("quantity", res.data.quantity);
+      setValue("status", res.data.status);
+      setValue("size", res.data.size);
+    });
   }, []);
   const navigate = useNavigate();
   const schema = yup.object().shape({
@@ -132,137 +133,143 @@ const EditProduct = () => {
         </nav>
       </div>
       <div className="mt-4 px-6 py-4">
-        <form onSubmit={handleSubmit(Editproduct)}>
-          <h1 className="text-lg font-normal mb-4">Product Information</h1>
-          <div className="flex w-full gap-6 ">
-            <div className="flex flex-col w-full">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                {...register("name")}
-                placeholder="enter name"
-                className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
-              />
-              {errors.name && (
-                <p className="mt-1 text-red-500 text-sm">
-                  {errors.name.message}
-                </p>
-              )}
+        {!Loading ? (
+          <form onSubmit={handleSubmit(Editproduct)}>
+            <h1 className="text-lg font-normal mb-4">Product Information</h1>
+            <div className="flex w-full gap-6 max-[990px]:flex-col">
+              <div className="flex flex-col w-full">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  {...register("name")}
+                  placeholder="enter name"
+                  className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
+                />
+                {errors.name && (
+                  <p className="mt-1 text-red-500 text-sm">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-col w-full">
+                <label htmlFor="category">Category</label>
+                <select
+                  name="category"
+                  className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
+                  {...register("category")}
+                >
+                  <option value="">Select Category</option>
+                  <option value="Mobiles, Computers">Mobiles, Computers</option>
+                  <option value="TV, Appliances, Electronics">
+                    TV, Appliances, Electronics
+                  </option>
+                  <option value="Beauty, Health, Grocery">
+                    Beauty, Health, Grocery
+                  </option>
+                  <option value="Books">Books</option>
+                </select>
+                {errors.category && (
+                  <p className="mt-1 text-red-500 text-sm">
+                    {errors.category.message}
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="flex flex-col w-full">
-              <label htmlFor="category">Category</label>
-              <select
-                name="category"
-                className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
-                {...register("category")}
-              >
-                <option value="">Select Category</option>
-                <option value="Mobiles, Computers">Mobiles, Computers</option>
-                <option value="TV, Appliances, Electronics">
-                  TV, Appliances, Electronics
-                </option>
-                <option value="Beauty, Health, Grocery">
-                  Beauty, Health, Grocery
-                </option>
-                <option value="Books">Books</option>
-              </select>
-              {errors.category && (
-                <p className="mt-1 text-red-500 text-sm">
-                  {errors.category.message}
-                </p>
-              )}
+            <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
+              <div className="flex flex-col w-full">
+                <label htmlFor="price">Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  {...register("price")}
+                  placeholder="enter price"
+                  className="bg-transparent border border-gray-200 px-3 py-2 focus:outline-none rounded-md hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
+                />
+                {errors.price && (
+                  <p className="mt-1 text-red-500 text-sm">
+                    {"Please enter the price"}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-col w-full">
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  {...register("quantity")}
+                  placeholder="enter quantity"
+                  className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
+                />
+                {errors.quantity && (
+                  <p className="mt-1 text-red-500 text-sm">
+                    {"Please enter the quantity"}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="flex w-full gap-6 mt-4">
-            <div className="flex flex-col w-full">
-              <label htmlFor="price">Price</label>
-              <input
-                type="number"
-                name="price"
-                {...register("price")}
-                placeholder="enter price"
-                className="bg-transparent border border-gray-200 px-3 py-2 focus:outline-none rounded-md hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
-              />
-              {errors.price && (
-                <p className="mt-1 text-red-500 text-sm">
-                  {"Please enter the price"}
-                </p>
-              )}
+            <div className="flex w-full gap-6 mt-4 max-[990px]:flex-col">
+              <div className="flex flex-col w-full">
+                <label htmlFor="size">Size</label>
+                <input
+                  type="text"
+                  name="size"
+                  {...register("size")}
+                  placeholder="enter size"
+                  className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
+                />
+                {errors.size && (
+                  <p className="mt-1 text-red-500 text-sm">
+                    {errors.size.message}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-col w-full">
+                <label htmlFor="status">Status</label>
+                <select
+                  name="status"
+                  className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
+                  {...register("status")}
+                >
+                  <option value="true">Active</option>
+                  <option value="false">Inactive</option>
+                </select>
+                {errors.status && (
+                  <p className="mt-1 text-red-500 text-sm max-[990px]:flex-col">
+                    {errors.status.message}
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="flex flex-col w-full">
-              <label htmlFor="quantity">Quantity</label>
-              <input
-                type="number"
-                name="quantity"
-                {...register("quantity")}
-                placeholder="enter quantity"
-                className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
-              />
-              {errors.quantity && (
-                <p className="mt-1 text-red-500 text-sm">
-                  {"Please enter the quantity"}
-                </p>
-              )}
+            <div className="flex w-full gap-6 mt-4">
+              <div className="flex flex-col w-full">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  name="description"
+                  placeholder="enter description"
+                  {...register("description")}
+                  className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
+                  rows="5"
+                ></textarea>
+                {errors.description && (
+                  <p className="mt-1 text-red-500 text-sm">
+                    {errors.description.message}
+                  </p>
+                )}
+                {ErrMsg && (
+                  <p className="mt-1 text-red-500 text-sm">{ErrMsg}</p>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="flex w-full gap-6 mt-4">
-            <div className="flex flex-col w-full">
-              <label htmlFor="size">Size</label>
-              <input
-                type="text"
-                name="size"
-                {...register("size")}
-                placeholder="enter size"
-                className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
-              />
-              {errors.size && (
-                <p className="mt-1 text-red-500 text-sm">
-                  {errors.size.message}
-                </p>
-              )}
+            <div className="flex justify-end w-full mt-4">
+              <button className="rounded-md w-40 bg-neutral-900 hover:bg-neutral-700 text-white px-2 py-2">
+                Submit
+              </button>
             </div>
-            <div className="flex flex-col w-full">
-              <label htmlFor="status">Status</label>
-              <select
-                name="status"
-                className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
-                {...register("status")}
-              >
-                <option value="true">Active</option>
-                <option value="false">Inactive</option>
-              </select>
-              {errors.status && (
-                <p className="mt-1 text-red-500 text-sm">
-                  {errors.status.message}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="flex w-full gap-6 mt-4">
-            <div className="flex flex-col w-full">
-              <label htmlFor="description">Description</label>
-              <textarea
-                name="description"
-                placeholder="enter description"
-                {...register("description")}
-                className="bg-transparent border border-gray-200 px-3 py-2 rounded-md focus:outline-none hover:border-gray-400 transition delay-100 ease-in placeholder:text-gray-400 focus:border-gray-400 mt-4"
-                rows="5"
-              ></textarea>
-              {errors.description && (
-                <p className="mt-1 text-red-500 text-sm">
-                  {errors.description.message}
-                </p>
-              )}
-              {ErrMsg && <p className="mt-1 text-red-500 text-sm">{ErrMsg}</p>}
-            </div>
-          </div>
-          <div className="flex justify-end w-full mt-4">
-            <button className="rounded-md w-40 bg-neutral-900 hover:bg-neutral-700 text-white px-2 py-2">
-              Submit
-            </button>
-          </div>
-        </form>
+          </form>
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );

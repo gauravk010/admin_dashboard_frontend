@@ -1,14 +1,19 @@
 import React from "react";
-import {FcDoughnutChart} from "react-icons/fc";
+import { FcDoughnutChart } from "react-icons/fc";
 import {
   Dashboard_Sidebar_Bottom_Links,
   Dashboard_Sidebar_Links,
 } from "../data/consts/navigation";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
+import { IoClose } from "react-icons/io5";
 
 export const Sidebar = (props) => {
-  const { SidbarSz } = props;
+  const {
+    SidebarCollapse,
+    MobSidebarCollapse,
+    setMobSidebarCollapse,
+  } = props;
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -16,26 +21,41 @@ export const Sidebar = (props) => {
     localStorage.removeItem("authtoken");
     navigate("/login");
   };
+  const toggle = () => {
+    setMobSidebarCollapse(!MobSidebarCollapse);
+  };
   const linkClass =
-    "flex items-center px-1 py-3 gap-2 font-light  hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base";
+    "flex items-center px-3 py-3 gap-4 font-light  hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base";
   return (
     <div
       className={classNames(
-        SidbarSz ? "w-20" : "w-64",
-        "flex flex-col bg-neutral-900 p-3 h-screen text-white fixed z-10 "
+        SidebarCollapse ? "w-20" : "w-64",
+        `flex flex-col bg-neutral-900 p-3 min-h-screen text-white fixed z-20 max-[990px]:w-64 max-[990px]:-left-64 ${
+          MobSidebarCollapse ? "max-[990px]:-ml-64" : "max-[990px]:ml-64"
+        } max-[990px]:duration-150`
       )}
     >
-      <div
-        className={classNames(
-          SidbarSz ? "justify-center" : "gap-2",
-          "flex items-end px-1 py-3 "
-        )}
-      >
-        <FcDoughnutChart  fontSize={!SidbarSz ? 30 : 36} />
-        <span className="text-neutral-100 text-xl">
-          {" "}
-          {!SidbarSz ? "Vizdash" : ""}
-        </span>
+      <div className="flex justify-between items-center">
+        <Link
+          to={"/"}
+          className={classNames(
+            // SidebarCollapse ? "justify-center" : "",
+            "flex items-center px-1 py-3 gap-4"
+          )}
+          onClick={() => setMobSidebarCollapse(!MobSidebarCollapse)}
+        >
+          <FcDoughnutChart fontSize={36} />
+          <span className="text-neutral-100 text-xl ">
+            {MobSidebarCollapse
+              ? !SidebarCollapse
+                ? "Vizdash"
+                : ""
+              : "Vizdash"}
+          </span>
+        </Link>
+        <div className={`max-[990px]:block hidden`}>
+          <IoClose className="cursor-pointer" fontSize={25} onClick={toggle} />
+        </div>
       </div>
       <div className="flex-1 flex flex-col gap-0.5 py-8">
         {Dashboard_Sidebar_Links.map((item) => {
@@ -46,15 +66,19 @@ export const Sidebar = (props) => {
                 pathname === item.path
                   ? "bg-neutral-700 text-white"
                   : "text-neutral-400",
-                linkClass,
-                SidbarSz ? "justify-center" : ""
+                linkClass
+                // SidebarCollapse ? "justify-center" : ""
               )}
               key={item.key}
+              onClick={() => setMobSidebarCollapse(!MobSidebarCollapse)}
             >
-              <span className={SidbarSz ? "text-2xl" : "text-xl"}>
-                {item.icon}
-              </span>
-              {!SidbarSz ? item.label : ""}
+              <span className={"text-2xl"}>{item.icon}</span>
+              {/* {!SidebarCollapse ? item.label : ""} */}
+              {MobSidebarCollapse
+                ? !SidebarCollapse
+                  ? item.label
+                  : ""
+                : item.label}
             </Link>
           );
         })}
@@ -68,16 +92,19 @@ export const Sidebar = (props) => {
                 pathname === item.path
                   ? "bg-neutral-700 text-white"
                   : "text-neutral-400",
-                linkClass,
-                SidbarSz ? "justify-center" : ""
+                linkClass
+                // SidebarCollapse ? "justify-center" : ""
               )}
-              onClick={item.label === "Logout" ? logout : ""}
+              onClick={()=> item.label === "Logout" ? logout : setMobSidebarCollapse(!MobSidebarCollapse)}
               key={item.key}
             >
-              <span className={SidbarSz ? "text-2xl" : "text-xl"}>
-                {item.icon}
-              </span>
-              {!SidbarSz ? item.label : ""}
+              <span className={"text-2xl"}>{item.icon}</span>
+              {/* {!SidebarCollapse ? item.label : ""} */}
+              {MobSidebarCollapse
+                ? !SidebarCollapse
+                  ? item.label
+                  : ""
+                : item.label}
             </Link>
           );
         })}

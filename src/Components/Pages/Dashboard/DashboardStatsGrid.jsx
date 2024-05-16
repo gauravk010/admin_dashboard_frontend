@@ -25,7 +25,7 @@ export const DashboardStatsGrid = () => {
   };
 
   return (
-    <div className="flex flex-row gap-4 w-full">
+    <div className="flex flex-row max-sm:flex max-sm:flex-col max-[990px]:grid max-[990px]:grid-cols-2 gap-4 w-full">
       <BoxWrap>
         <div className="rounded-full h-12 w-12 flex items-center justify-center bg-sky-500">
           <FaBox className="text-2xl text-white" />

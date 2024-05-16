@@ -8,7 +8,7 @@ export const Dashboard = () => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <DashboardStatsGrid />
-      <div className="flex flex-row gap-4 w-full">
+      <div className="flex flex-row gap-4 w-full max-[990px]:flex-col">
         <BarChartComp />
         <PieChartComp />
       </div>
